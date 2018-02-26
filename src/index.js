@@ -7,7 +7,6 @@ const rollbar = new Rollbar({
   captureUncaught: true,
   captureUnhandledRejections: true
 })
-rollbar.log('Hello, world!')
 
 TokenManager.init()
 

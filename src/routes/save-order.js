@@ -2,8 +2,6 @@ const path = require('path')
 const archiver = require('archiver')
 const globby = require('globby')
 
-const debug = require('debug')('myapp')
-const debugStream = require('debug-stream')(debug)
 
 const fs = require('fs')
 
@@ -23,9 +21,7 @@ module.exports = async function(req, res) {
   archive.on('error', err => console.log(err))
   archive.on('end', () => console.log('Archived'))
 
-  archive
-    .pipe(debugStream())
-    .pipe(res)
+  archive.pipe(res)
 
   const filenames = await globby(req.body.includes, { ignore: req.body.excludes })
   filenames.forEach(filename => archive.file(filename, {
